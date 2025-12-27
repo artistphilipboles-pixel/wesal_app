@@ -6,6 +6,8 @@ class UserCard extends StatelessWidget {
   final String country;
   final String status;
   final bool isVerified;
+  final VoidCallback? onWave;
+  final bool isGuest;
 
   const UserCard({
     super.key,
@@ -14,6 +16,8 @@ class UserCard extends StatelessWidget {
     required this.country,
     required this.status,
     this.isVerified = false,
+    this.onWave,
+    this.isGuest = false,
   });
 
   @override
@@ -31,10 +35,7 @@ class UserCard extends StatelessWidget {
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(
-          color: Colors.white.withOpacity(0.5),
-          width: 1.5,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.5), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -105,19 +106,19 @@ class UserCard extends StatelessWidget {
                   icon: Icons.block,
                   label: 'تجاهل',
                   color: Colors.red.shade400,
-                  onTap: () {},
+                  onTap: isGuest ? null : () {},
                 ),
                 _ActionButton(
                   icon: Icons.waving_hand,
                   label: 'تلويح',
                   color: Colors.amber.shade700,
-                  onTap: () {},
+                  onTap: isGuest ? null : (onWave ?? () {}),
                 ),
                 _ActionButton(
                   icon: Icons.favorite,
                   label: 'إعجاب',
                   color: Colors.pink.shade400,
-                  onTap: () {},
+                  onTap: isGuest ? null : () {},
                 ),
               ],
             ),
@@ -132,7 +133,7 @@ class _ActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final Color color;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const _ActionButton({
     required this.icon,

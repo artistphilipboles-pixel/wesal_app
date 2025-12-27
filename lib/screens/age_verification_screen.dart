@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wesal_app/screens/privacy_setup_screen.dart';
+import 'package:wesal_app/screens/legal_terms_screen.dart';
 
 class AgeVerificationScreen extends StatefulWidget {
   const AgeVerificationScreen({super.key});
@@ -12,46 +14,35 @@ class AgeVerificationScreen extends StatefulWidget {
 class _AgeVerificationScreenState extends State<AgeVerificationScreen> {
   final TextEditingController _ageController = TextEditingController();
   String? _errorMessage;
+  bool _isValid = false;
 
-  void _validateAndProceed() {
-    final String input = _ageController.text.trim();
-    if (input.isEmpty) {
+  void _validateAgeInput(String input) {
+    final String trimmed = input.trim();
+    final int? age = int.tryParse(trimmed);
+    if (trimmed.isEmpty || age == null) {
       setState(() {
-        _errorMessage = 'الرجاء إدخال العمر';
+        _isValid = false;
+        _errorMessage = null;
       });
       return;
     }
-
-    final int? age = int.tryParse(input);
-    if (age == null) {
+    if (age < 21 || age > 99) {
       setState(() {
-        _errorMessage = 'الرجاء إدخال رقم صحيح';
+        _isValid = false;
+        _errorMessage = 'عذراً، يجب أن يكون عمرك بين 21 و 99 عاماً للمتابعة';
       });
       return;
     }
-
-    if (age < 21) {
-      setState(() {
-        _errorMessage = 'عذراً، التطبيق متاح لمن هم فوق 21 عاماً فقط';
-      });
-      return;
-    }
-
-    if (age > 99) {
-      setState(() {
-        _errorMessage = 'الرجاء إدخال عمر صحيح (أقل من 99)';
-      });
-      return;
-    }
-
-    // Valid age
     setState(() {
+      _isValid = true;
       _errorMessage = null;
     });
+  }
 
+  void navigateToPrivacy() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const PrivacySetupScreen()),
+      MaterialPageRoute(builder: (context) => const LegalTermsScreen()),
     );
   }
 
@@ -116,10 +107,13 @@ class _AgeVerificationScreenState extends State<AgeVerificationScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
-                
+
                 // Input Field Container
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(25),
@@ -129,70 +123,55 @@ class _AgeVerificationScreenState extends State<AgeVerificationScreen> {
                     controller: _ageController,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
+                    maxLength: 2,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(2),
                     ],
-                    style: const TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
+                    style: GoogleFonts.tajawal(
+                      fontSize: 32,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'أدخل عمرك هنا (مثال: 25)',
-                      hintStyle: TextStyle(
+                    decoration: InputDecoration(
+                      counterText: '',
+                      hintText: '21',
+                      hintStyle: const TextStyle(
                         color: Colors.white38,
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                       ),
+                      errorText: _errorMessage,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.white.withValues(alpha: 0.3),
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF7851A9),
+                          width: 2,
+                        ),
+                      ),
                     ),
-                    onChanged: (value) {
-                      if (_errorMessage != null) {
-                        setState(() {
-                          _errorMessage = null;
-                        });
-                      }
-                    },
+                    onChanged: _validateAgeInput,
                   ),
                 ),
 
-                if (_errorMessage != null) ...[
-                  const SizedBox(height: 16),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: Colors.red.withOpacity(0.3)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.error_outline, color: Colors.redAccent, size: 20),
-                        const SizedBox(width: 8),
-                        Text(
-                          _errorMessage!,
-                          style: const TextStyle(
-                            color: Colors.redAccent,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-
                 const SizedBox(height: 40),
-                
+
                 SizedBox(
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: _validateAndProceed,
+                    onPressed: _isValid ? navigateToPrivacy : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xFF191970),
+                      backgroundColor: _isValid
+                          ? const Color(0xFF191970)
+                          : Colors.grey,
+                      foregroundColor: Colors.white,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

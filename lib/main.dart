@@ -3,7 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wesal_app/screens/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const WesalApp());
 }
 
@@ -16,10 +17,7 @@ class WesalApp extends StatelessWidget {
       title: 'وصال', // Arabic Title
       // RTL Support
       locale: const Locale('ar'),
-      supportedLocales: const [
-        Locale('ar'),
-        Locale('en'),
-      ],
+      supportedLocales: const [Locale('ar'), Locale('en')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -36,9 +34,7 @@ class WesalApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color(0xFFF3F4F6),
         // Font
-        textTheme: GoogleFonts.tajawalTextTheme(
-          Theme.of(context).textTheme,
-        ),
+        textTheme: GoogleFonts.tajawalTextTheme(Theme.of(context).textTheme),
         // Button Theme for global styling
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -47,11 +43,12 @@ class WesalApp extends StatelessWidget {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             elevation: 8,
-            shadowColor: Colors.purple.withOpacity(0.4),
+            shadowColor: Colors.purple.withValues(alpha: 0.4),
           ),
         ),
       ),
-      home: const SplashScreen(),
+      initialRoute: '/',
+      routes: {'/': (_) => const SplashScreen()},
       debugShowCheckedModeBanner: false,
     );
   }

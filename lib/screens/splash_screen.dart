@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wesal_app/screens/welcome_screen.dart';
+import 'package:wesal_app/screens/age_verification_screen.dart';
 
 import 'package:wesal_app/widgets/wesal_logo.dart';
 
@@ -14,17 +14,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToWelcome();
+    _navigateToAge();
   }
 
-  Future<void> _navigateToWelcome() async {
+  Future<void> _navigateToAge() async {
     await Future.delayed(const Duration(seconds: 3), () {});
     if (mounted) {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const WelcomeScreen(),
+              const AgeVerificationScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(opacity: animation, child: child);
           },

@@ -72,7 +72,7 @@ class _LegalAgreementScreenState extends State<LegalAgreementScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // Legal Text Container
               Expanded(
                 child: Container(
@@ -101,13 +101,16 @@ class _LegalAgreementScreenState extends State<LegalAgreementScreen> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 20),
 
               // Acceptance Checkbox
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 20),
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(15),
@@ -137,7 +140,10 @@ class _LegalAgreementScreenState extends State<LegalAgreementScreen> {
 
               // Action Button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 20,
+                ),
                 child: SizedBox(
                   width: double.infinity,
                   height: 55,
@@ -147,7 +153,8 @@ class _LegalAgreementScreenState extends State<LegalAgreementScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const AgeVerificationScreen(),
+                                builder: (context) =>
+                                    const AgeVerificationScreen(),
                               ),
                             );
                           }

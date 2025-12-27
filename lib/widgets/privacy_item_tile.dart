@@ -36,7 +36,9 @@ class PrivacyItemTile extends StatelessWidget {
                 Text(
                   label,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),

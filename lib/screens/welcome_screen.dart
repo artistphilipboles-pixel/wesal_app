@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:wesal_app/screens/age_verification_screen.dart';
+import 'package:wesal_app/screens/legal_agreement_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

@@ -34,14 +34,23 @@ class NotificationsScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           final notif = notifications[index];
           return ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
             leading: CircleAvatar(
-              backgroundColor: const Color(0xFF7851A9).withOpacity(0.1),
+              backgroundColor: Colors.white.withValues(alpha: 0.1),
               child: const Icon(Icons.notifications, color: Color(0xFF7851A9)),
             ),
-            title: Text(notif['title']!, style: const TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(
+              notif['title']!,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             subtitle: Text(notif['body']!),
-            trailing: Text(notif['time']!, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+            trailing: Text(
+              notif['time']!,
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
+            ),
           );
         },
       ),

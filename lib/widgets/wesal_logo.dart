@@ -4,11 +4,7 @@ class WesalLogo extends StatelessWidget {
   final double size;
   final bool isLight;
 
-  const WesalLogo({
-    super.key,
-    this.size = 100,
-    this.isLight = true,
-  });
+  const WesalLogo({super.key, this.size = 100, this.isLight = true});
 
   @override
   Widget build(BuildContext context) {

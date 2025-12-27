@@ -65,7 +65,7 @@ class _PrivacySetupScreenState extends State<PrivacySetupScreen> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -139,7 +139,11 @@ class _PrivacySetupScreenState extends State<PrivacySetupScreen> {
                   ),
                   child: const Text(
                     'إكمال الإعداد والمتابعة',
-                    style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
